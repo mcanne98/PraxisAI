@@ -1,0 +1,174 @@
+@import "tailwindcss";
+
+/*
+ * Praxis Intelligence design tokens.
+ * Contrast-checked against WCAG 2.2 AA — see docs/BRAND_GUIDELINES.md.
+ */
+@theme {
+  /* Core palette */
+  --color-midnight: #0b1220;
+  --color-slate-deep: #172033;
+  --color-slate-line: #243049;
+  --color-blue: #5271ff; /* brand blue — decorative and on dark only */
+  --color-blue-ink: #3d55e0; /* accessible blue for text/buttons on light (5.6:1) */
+  --color-blue-soft: #7b93ff; /* accessible blue for text on dark (6.6:1) */
+  --color-teal: #5eead4; /* accent on dark (12.6:1) */
+  --color-teal-ink: #0f766e; /* teal for text on light (5.2:1) */
+  --color-paper: #f8fafc;
+  --color-paper-warm: #f3f1ec;
+  --color-ink: #0b1220;
+  --color-ink-muted: #475569; /* body-muted on light (7.2:1) */
+  --color-mist: #94a3b8; /* muted on dark only (7.3:1) */
+  --color-rule: #e2e6ee;
+
+  /* Typography */
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-manrope), var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-serif: var(--font-newsreader), ui-serif, Georgia, serif;
+
+  --text-display: clamp(2.5rem, 1.6rem + 3.6vw, 4.75rem);
+  --text-display--line-height: 1.04;
+  --text-display--letter-spacing: -0.035em;
+
+  --container-site: 76rem;
+
+  --ease-praxis: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+    scroll-behavior: smooth;
+    scroll-padding-top: 6rem;
+  }
+
+  body {
+    background: var(--color-paper);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    font-feature-settings: "cv11", "ss01";
+    text-rendering: optimizeLegibility;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-display);
+    letter-spacing: -0.02em;
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  ::selection {
+    background: color-mix(in oklab, var(--color-blue) 28%, transparent);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-blue-ink);
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+
+  .dark-surface :focus-visible {
+    outline-color: var(--color-teal);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Subtle grid texture used on dark sections */
+.grid-texture {
+  background-image:
+    linear-gradient(to right, rgb(148 163 184 / 0.06) 1px, transparent 1px),
+    linear-gradient(to bottom, rgb(148 163 184 / 0.06) 1px, transparent 1px);
+  background-size: 56px 56px;
+}
+
+/* Editorial long-form typography for MDX articles and legal pages */
+.prose-praxis {
+  font-size: 1.125rem;
+  line-height: 1.75;
+  color: var(--color-ink);
+}
+.prose-praxis > * + * {
+  margin-top: 1.25em;
+}
+.prose-praxis h2 {
+  font-size: 1.75rem;
+  line-height: 1.25;
+  margin-top: 2.2em;
+  font-weight: 600;
+}
+.prose-praxis h3 {
+  font-size: 1.3rem;
+  line-height: 1.35;
+  margin-top: 1.8em;
+  font-weight: 600;
+}
+.prose-praxis a {
+  color: var(--color-blue-ink);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.prose-praxis ul,
+.prose-praxis ol {
+  padding-left: 1.4em;
+}
+.prose-praxis ul {
+  list-style: disc;
+}
+.prose-praxis ol {
+  list-style: decimal;
+}
+.prose-praxis li + li {
+  margin-top: 0.4em;
+}
+.prose-praxis blockquote {
+  border-left: 2px solid var(--color-blue-ink);
+  padding-left: 1.25em;
+  font-family: var(--font-serif);
+  font-size: 1.3rem;
+  font-style: italic;
+  color: var(--color-ink-muted);
+}
+.prose-praxis strong {
+  font-weight: 600;
+}
+.prose-praxis table {
+  width: 100%;
+  font-size: 1rem;
+  border-collapse: collapse;
+}
+.prose-praxis th,
+.prose-praxis td {
+  border-bottom: 1px solid var(--color-rule);
+  padding: 0.6em 0.5em;
+  text-align: left;
+  vertical-align: top;
+}
+
+@keyframes method-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}

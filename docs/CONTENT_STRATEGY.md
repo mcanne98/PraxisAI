@@ -1,0 +1,61 @@
+# Content strategy
+
+## Objective
+
+Build credibility through the quality of thinking, not claims. A new firm has no case studies or testimonials yet, so trust is earned
+through: a distinctive framework (the Praxis Method), a genuinely useful free tool (the AI Readiness Assessment), clear service
+definitions and consistent editorial insight.
+
+## Audiences and primary journeys
+
+| Audience                     | Entry                | Path                           | Conversion                    |
+| ---------------------------- | -------------------- | ------------------------------ | ----------------------------- |
+| CEOs / executive teams       | Home, Advisory       | Method → Advisory → Assessment | Contact (AI Advisory)         |
+| Technology & product leaders | Consulting, Insights | Pilots article → Consulting    | Contact (AI Consulting)       |
+| Healthcare organizations     | Consulting           | Healthcare service → Contact   | Contact                       |
+| SMBs                         | Home                 | Assessment → Results next step | Contact                       |
+| L&D teams                    | Academy              | Workshops / Courses            | Contact (Corporate Workshops) |
+| Professionals                | Academy, Insights    | Courses → Register interest    | Interest registration         |
+
+## Content inventory (v1)
+
+- 3 practice pages (10–12 services each) generated from `content/practices.ts`.
+- 7 Academy learning paths, 4 workshops, 5 resources (2 live, 3 in development).
+- 3 framework articles (drafted for owner review): The Praxis Method; The six dimensions of AI readiness; Why AI pilots stall.
+- Founder profile — **draft, pending approval**.
+- Draft Privacy and Terms — **pending legal review**.
+
+## Editorial categories
+
+AI Leadership · Agentic AI · Enterprise Transformation · Knowledge Protocol Engineering · Future of Work · Healthcare AI · AI Education.
+
+## Blog relationship (canonical ownership)
+
+- Founder's personal thought leadership remains canonical at `blog.cedricanne.com`.
+- The site links to it (homepage, Insights, About, footer) and can list recent posts via `BLOG_FEED_URL` — links only, no copies.
+- Praxis-owned frameworks are published on this site. If a piece is cross-posted to the blog, set the blog copy's canonical to this
+  site (or vice versa) — never leave two canonical versions.
+
+## Founder content
+
+The brief supplied positioning, not verified facts. The current bio uses only that positioning — no employers, titles, dates,
+credentials or metrics — and displays a "pending approval" notice. To finalize: supply approved bio text and a licensed photograph,
+update `src/content/founder.ts`, set `bioIsPlaceholder: false`, and add `photo`.
+
+## SEO themes
+
+Target topics are mapped to pages (titles, descriptions, headings and body copy): AI consulting Canada/Ontario (home, consulting,
+contact); AI advisory services, enterprise AI strategy, fractional Chief AI Officer (advisory); agentic AI consulting, healthcare AI
+consulting, AI transformation consulting (consulting); AI training for executives, corporate AI training, AI leadership training
+(academy, workshops, courses); AI readiness assessment (/ai-readiness, resources). No keyword stuffing; each page answers its topic
+directly, which also helps AI-powered discovery.
+
+## Publishing cadence (recommended)
+
+Two framework articles per month, each tied to a service and ending with a relevant next step (assessment, workshop or contact).
+
+## Adding an article
+
+1. Create `src/content/insights/<slug>.mdx` (body only; no H1).
+2. Add metadata to `src/content/insights/index.ts`.
+3. `pnpm build` — the page, sitemap entry and Article structured data are generated.
