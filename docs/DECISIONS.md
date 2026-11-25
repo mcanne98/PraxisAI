@@ -2,11 +2,11 @@
 
 Lightweight ADRs. Newest last.
 
-## ADR-001 — Next.js 16 App Router with Cache Components
+## ADR-001 — Next.js 16 App Router
 
-**Context:** Empty repository; brief recommends Next.js. **Decision:** Next.js 16 with the scaffold defaults (`cacheComponents`,
-`partialPrefetching`, Turbopack). **Why:** current stable release, static output by default, first-class Vercel support while remaining
-portable (`next start`, Docker). **Consequence:** must follow Cache Components rules (async params, no sync dynamic IO during prerender).
+**Context:** Empty repository; brief recommends Next.js. **Decision:** Next.js 16 with Turbopack. **Why:** current stable release,
+static output by default, portable across hosts. **Update:** the scaffold's `cacheComponents`/`partialPrefetching` defaults were
+later turned off — see ADR-011.
 
 ## ADR-002 — Typed content files instead of a CMS (for now)
 
@@ -54,3 +54,26 @@ being indexed with draft legal pages and placeholder founder content.
 **Decision:** Brand blue `#5271FF` and slate `#94A3B8` fail AA as text on light backgrounds (3.9:1, 2.5:1). Added `blue-ink #3D55E0`
 (5.6:1), `teal-ink #0F766E` (5.2:1) and `ink-muted #475569` (7.2:1) for light surfaces; `blue-soft #7B93FF` (6.6:1) for text on dark.
 Original colours are kept for decoration and dark surfaces where they pass.
+
+## ADR-011 — Host on Cloudflare Workers via OpenNext; Cache Components off
+
+**Context:** The owner's domain (cedricanne.com) is on Cloudflare; the site goes to `praxis.cedricanne.com`. **Decision:** Deploy with
+`@opennextjs/cloudflare` to Cloudflare Workers, using Cloudflare's GitHub integration (Workers Builds). Turn off `cacheComponents` and
+`partialPrefetching` and remove `"use cache"`. **Why:** with Cache Components on, every page returned 500 in the Workers runtime
+(composable cache unsupported, requests hung); the adapter warns it is not yet supported. The site is fully prerendered, so nothing is
+lost: the copyright year and optional blog feed now resolve at build time and refresh on each deploy. Unknown article slugs 404 via
+`dynamicParams = false`. **Verified:** all 50 E2E tests pass against `wrangler dev` with the cache populated, with zero runtime errors.
+**Revisit when:** OpenNext supports Cache Components.
+
+## ADR-012 — Read-only static-assets cache on Cloudflare
+
+**Decision:** OpenNext `staticAssetsIncrementalCache`: prerendered pages are served from Workers static assets. **Why:** no R2 or KV to
+provision (R2 may need a payment method); content updates ship by redeploying. **Requirement:** deploy with
+`opennextjs-cloudflare deploy` (it populates the cache), never plain `wrangler deploy`. **Trade-off:** no on-demand/ISR revalidation;
+switch to the R2 cache if that is ever needed.
+
+## ADR-013 — Rate limiting on Workers
+
+**Note:** the in-memory limiter (ADR-008) is per Workers isolate, so it is weaker on Cloudflare than on a single server. The client IP
+now comes from `CF-Connecting-IP`. **Next:** Cloudflare's Rate Limiting binding or WAF rate-limiting rules — no code dependency, and
+the free plan includes one WAF rate-limiting rule.

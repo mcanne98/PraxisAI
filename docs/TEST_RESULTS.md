@@ -55,3 +55,18 @@ Desktop LCP: 0.6–0.7 s on all pages.
 
 Measure real-user Core Web Vitals after deployment (Vercel Speed Insights or CrUX). If mobile LCP remains above target in the field,
 evaluate disabling `partialPrefetching`, deferring the header's client navigation, and inlining critical CSS.
+
+## Cloudflare Workers runtime (added 2026-11-25)
+
+After moving to Cloudflare (OpenNext 1.20, Wrangler 4.168, `workerd` local runtime, cache populated, Cache Components off):
+
+| Check                                                                               | Result                                                                                        |
+| ----------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------- |
+| E2E suite (`PORT=8787 pnpm test:e2e` against `wrangler dev`)                        | **50 passed, 2 skipped**, 0 runtime errors in the Worker log                                  |
+| Prerendered pages served from cache                                                 | `x-nextjs-cache: HIT`, ~10 ms locally                                                         |
+| Worker size (`wrangler deploy --dry-run`)                                           | 8.2 MiB raw / **2.0 MiB gzip** (free plan limit 3 MiB)                                        |
+| Lighthouse mobile — `/`, `/ai-readiness`, `/contact`, `/insights/the-praxis-method` | Perf 93 / 96 / 97 / 94 · A11y 100 · Best practices 100 · LCP 3.1 / 2.7 / 2.5 / 3.0 s · CLS 0  |
+| Lighthouse desktop — `/ai-readiness`                                                | Perf 100, LCP 0.6 s (other desktop runs hit a Lighthouse `NO_NAVSTART` tooling error locally) |
+
+SEO scores 66 here because indexing is deliberately off (robots.txt disallow + `X-Robots-Tag: noindex`). It scored 100 when indexing was
+enabled (table above). Before Cache Components was turned off, every page returned HTTP 500 in the Workers runtime; see ADR-011.

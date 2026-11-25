@@ -2,11 +2,12 @@
 
 ## Overview
 
-A statically prerendered Next.js 16 site with a small server surface (three server actions). Every page is generated at build time;
-pages revalidate daily because the footer's copyright year is a cached component.
+A statically prerendered Next.js 16 site with a small server surface (three server actions), deployed to Cloudflare Workers via
+OpenNext. Every page is generated at build time and served from Workers static assets (read-only cache); content changes ship on
+redeploy. Cache Components is deliberately off (ADR-011).
 
 ```
-Browser ──► CDN (static HTML/CSS/JS, security headers)
+Browser ──► Cloudflare Worker (prerendered HTML from static assets, security headers)
    │
    └─ form submit ──► Server action (Node) ──► validate (Zod) ──► rate limit ──► anti-spam
                                                         └─► deliverLead() ──► [Resend email] [CRM webhook] | not-configured
@@ -14,16 +15,16 @@ Browser ──► CDN (static HTML/CSS/JS, security headers)
 
 ## Routes
 
-| Route                                                          | Type                          | Notes                                                         |
-| -------------------------------------------------------------- | ----------------------------- | ------------------------------------------------------------- |
-| `/`                                                            | static                        | 9 homepage sections                                           |
-| `/advisory`, `/consulting`, `/academy`                         | static                        | Rendered by `PracticeOverview` from `content/practices.ts`    |
-| `/academy/courses`, `/workshops`, `/resources`                 | static                        | Catalog data in `content/academy.ts`                          |
-| `/insights`                                                    | static                        | On-site articles + optional build-time blog feed (linked out) |
-| `/insights/[slug]`                                             | static (generateStaticParams) | MDX via dynamic import                                        |
-| `/about`, `/contact`, `/ai-readiness`                          | static                        | Forms/assessment hydrate on the client                        |
-| `/privacy`, `/terms`                                           | static, `noindex`             | Drafts pending legal review                                   |
-| `/sitemap.xml`, `/robots.txt`, `/opengraph-image`, `/icon.svg` | static                        | Generated metadata routes                                     |
+| Route                                                          | Type                            | Notes                                                         |
+| -------------------------------------------------------------- | ------------------------------- | ------------------------------------------------------------- |
+| `/`                                                            | static                          | 9 homepage sections                                           |
+| `/advisory`, `/consulting`, `/academy`                         | static                          | Rendered by `PracticeOverview` from `content/practices.ts`    |
+| `/academy/courses`, `/workshops`, `/resources`                 | static                          | Catalog data in `content/academy.ts`                          |
+| `/insights`                                                    | static                          | On-site articles + optional build-time blog feed (linked out) |
+| `/insights/[slug]`                                             | static, `dynamicParams = false` | MDX via dynamic import; unknown slugs 404                     |
+| `/about`, `/contact`, `/ai-readiness`                          | static                          | Forms/assessment hydrate on the client                        |
+| `/privacy`, `/terms`                                           | static, `noindex`               | Drafts pending legal review                                   |
+| `/sitemap.xml`, `/robots.txt`, `/opengraph-image`, `/icon.svg` | static                          | Generated metadata routes                                     |
 
 ## Content layer
 
@@ -45,8 +46,8 @@ reviewable. Article bodies are MDX (`@next/mdx`), with metadata in a registry (`
 - Server actions in `src/app/actions.ts` (`submitContact`, `submitInterest`, `submitAssessmentLead`).
 - Validation: Zod (`lib/validation/schemas.ts`) — trimming, control-character stripping, length limits, enum checks, consent checks.
 - Anti-spam: hidden honeypot field + minimum time-on-page (2.5 s since page load). Bots receive a generic success and nothing is sent.
-- Rate limiting: in-memory fixed window, 5 per IP per form per 10 minutes (`FORM_RATE_LIMIT`). **Limitation:** per instance. Replace
-  with a shared store (e.g. Upstash Redis) before significant traffic.
+- Rate limiting: in-memory fixed window, 5 per IP per form per 10 minutes (`FORM_RATE_LIMIT`), keyed on `CF-Connecting-IP`.
+  **Limitation:** per Workers isolate. Add a Cloudflare WAF rate-limiting rule or the Rate Limiting binding before significant traffic.
 - Delivery: `lib/integrations/delivery.ts` — channel adapters enabled by env vars. Returns `delivered | not-configured | failed`. HTML
   email content is escaped.
 - Forms use React 19 `useActionState` and work without JavaScript. Submitted values are echoed back so fields are refilled after React's

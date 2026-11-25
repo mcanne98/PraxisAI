@@ -1,12 +1,10 @@
 import Link from "next/link";
-import { cacheLife } from "next/cache";
 import { footerNav, site } from "@/content/site";
 import { Wordmark } from "@/components/brand/wordmark";
 import { Container } from "@/components/ui/primitives";
 
-async function CopyrightYear() {
-  "use cache";
-  cacheLife("days");
+/** Evaluated at build time (pages are static); refreshed on every deploy. */
+function CopyrightYear() {
   return <>{new Date().getFullYear()}</>;
 }
 

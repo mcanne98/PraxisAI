@@ -1,0 +1,16 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  // Cloudflare Workers deployment via OpenNext. See docs/DEPLOYMENT.md → Cloudflare.
+  "name": "praxis-intelligence",
+  "main": ".open-next/worker.js",
+  "compatibility_date": "2026-11-20",
+  "compatibility_flags": ["nodejs_compat", "global_fetch_strictly_public"],
+  "assets": {
+    "directory": ".open-next/assets",
+    "binding": "ASSETS",
+  },
+  // Cloudflare creates the DNS record and certificate for this hostname on deploy
+  // (the cedricanne.com zone must be in the same Cloudflare account).
+  "routes": [{ "pattern": "praxis.cedricanne.com", "custom_domain": true }],
+  "observability": { "enabled": true },
+}

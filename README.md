@@ -5,11 +5,12 @@
 The site presents three practices — **Advisory** (Lead), **Consulting** (Build) and **Academy** (Learn) — connected by **The Praxis Method**,
 and includes a free, interactive **AI Readiness Assessment** for lead generation.
 
-> **Status: pre-launch.** Not yet deployed. See [Outstanding before launch](#outstanding-before-launch).
+> **Status: pre-launch.** Deploys to `https://praxis.cedricanne.com` (Cloudflare Workers) with search indexing off. See
+> [Outstanding before launch](#outstanding-before-launch).
 
 ## Stack
 
-Next.js 16 (App Router, Cache Components, Turbopack) · React 19 · TypeScript (strict) · Tailwind CSS 4 · MDX · Zod · Lucide · Vitest ·
+Next.js 16 (App Router, Turbopack) on Cloudflare Workers via OpenNext · React 19 · TypeScript (strict) · Tailwind CSS 4 · MDX · Zod · Lucide · Vitest ·
 Playwright + axe-core · pnpm
 
 ## Quick start
@@ -31,6 +32,8 @@ pnpm dev                     # http://localhost:3000
 | `pnpm test`                    | Unit tests (Vitest)                                                    |
 | `pnpm test:e2e`                | End-to-end + accessibility tests (Playwright). Run `pnpm build` first. |
 | `pnpm audit`                   | Production dependency vulnerability check                              |
+| `pnpm cf:build`                | Build the Cloudflare Workers bundle (OpenNext)                         |
+| `pnpm cf:preview`              | Build and run locally in the Cloudflare Workers runtime (port 8787)    |
 
 First-time Playwright users: `pnpm exec playwright install chromium`, or set `PW_CHROMIUM_PATH` to an existing Chromium binary.
 
@@ -61,6 +64,6 @@ Most content changes are edits to `src/content/*` — no layout work required.
 1. **Founder biography and photograph** — current copy is a clearly flagged draft (`src/content/founder.ts`).
 2. **Lead delivery** — configure Resend and/or a CRM webhook (`.env.example`). Until then forms say submissions are not sent.
 3. **Legal review** — `/privacy` and `/terms` are drafts with bracketed placeholders; legal entity name to be confirmed.
-4. **Domain** — set `NEXT_PUBLIC_SITE_URL`; set `ALLOW_INDEXING=true` only on the approved production deployment.
+4. **Indexing** — `ALLOW_INDEXING=true` in Cloudflare only once launch is approved (domain: praxis.cedricanne.com, set in `.env.production`).
 5. **Content review** — three framework articles in `src/content/insights/` are drafted for owner review.
 6. **Confirm** operating location (Ontario, Canada) and the "two business days" response commitment on `/contact`.

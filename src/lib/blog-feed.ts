@@ -1,5 +1,3 @@
-import { cacheLife } from "next/cache";
-
 /**
  * Optional build-time ingestion of the founder's blog feed.
  *
@@ -76,12 +74,11 @@ export function parseFeed(xml: string, limit = 6): BlogPost[] {
 }
 
 export async function getBlogPosts(): Promise<BlogPost[]> {
-  "use cache";
-  cacheLife("days");
   const feedUrl = process.env.BLOG_FEED_URL;
   if (!feedUrl || !safeUrl(feedUrl)) return [];
   try {
-    const res = await fetch(feedUrl, { signal: AbortSignal.timeout(5000) });
+    // Fetched once at build time; the list refreshes on the next deploy.
+    const res = await fetch(feedUrl, { cache: "force-cache", signal: AbortSignal.timeout(5000) });
     if (!res.ok) return [];
     return parseFeed(await res.text());
   } catch {

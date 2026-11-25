@@ -15,7 +15,8 @@ const WINDOW_MS = 10 * 60_000;
 
 async function clientKey(scope: string): Promise<string> {
   const h = await headers();
-  const ip = h.get("x-forwarded-for")?.split(",")[0]?.trim() || h.get("x-real-ip") || "unknown";
+  // CF-Connecting-IP is set by Cloudflare and cannot be spoofed by the client when served through Cloudflare.
+  const ip = h.get("cf-connecting-ip") || h.get("x-forwarded-for")?.split(",")[0]?.trim() || h.get("x-real-ip") || "unknown";
   return `${scope}:${ip}`;
 }
 

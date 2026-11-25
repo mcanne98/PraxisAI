@@ -8,6 +8,9 @@ import { JsonLd } from "@/components/seo/json-ld";
 import { articleJsonLd, pageMetadata } from "@/lib/seo";
 import { formatDate } from "@/lib/utils";
 
+/** Only known articles exist; anything else is a static 404 (no runtime rendering). */
+export const dynamicParams = false;
+
 export function generateStaticParams() {
   return insights.map((i) => ({ slug: i.slug }));
 }

@@ -36,8 +36,8 @@ const securityHeaders = [
 ];
 
 const nextConfig: NextConfig = {
-  cacheComponents: true,
-  partialPrefetching: true,
+  // cacheComponents/partialPrefetching are intentionally OFF: the Cloudflare adapter
+  // (OpenNext) does not support them yet. See docs/DECISIONS.md → ADR-011.
   poweredByHeader: false,
   pageExtensions: ["ts", "tsx", "md", "mdx"],
   turbopack: {
@@ -49,7 +49,10 @@ const nextConfig: NextConfig = {
     },
   },
   async headers() {
-    return [{ source: "/:path*", headers: securityHeaders }];
+    // Until launch is approved, tell crawlers not to index any URL (robots.txt alone
+    // does not stop indexing of URLs discovered through links).
+    const noIndex = process.env.ALLOW_INDEXING === "true" ? [] : [{ key: "X-Robots-Tag", value: "noindex, nofollow" }];
+    return [{ source: "/:path*", headers: [...securityHeaders, ...noIndex] }];
   },
 };
 

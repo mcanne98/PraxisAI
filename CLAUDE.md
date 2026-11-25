@@ -4,15 +4,19 @@
 
 ## What this is
 
-Marketing and lead-generation site for Praxis Intelligence (AI advisory, consulting, education). Next.js 16 App Router with
-`cacheComponents` + `partialPrefetching`. Read `node_modules/next/dist/docs/` before using unfamiliar Next APIs — this version differs
-from older training data (async `params`, no `dynamic`/`revalidate` segment configs, no `new Date()`/`Math.random()` during prerender
-outside `"use cache"`).
+Marketing and lead-generation site for Praxis Intelligence (AI advisory, consulting, education). Next.js 16 App Router, fully
+prerendered, deployed to **Cloudflare Workers via OpenNext** at praxis.cedricanne.com. Read `node_modules/next/dist/docs/` before using
+unfamiliar Next APIs — this version differs from older training data (e.g. async `params`).
+
+**Do not enable `cacheComponents`, `partialPrefetching` or `"use cache"`** — the Cloudflare adapter does not support them yet (every
+page 500s). See `docs/DECISIONS.md` ADR-011. Verify Cloudflare-affecting changes with `pnpm cf:preview` (or `cf:build` +
+`opennextjs-cloudflare populateCache local` + `wrangler dev`) and run E2E against it with `PORT=8787`.
 
 ## Commands
 
 ```bash
 pnpm dev | pnpm build | pnpm lint | pnpm typecheck | pnpm test | pnpm test:e2e (after build) | pnpm format
+pnpm cf:build | pnpm cf:preview   # Cloudflare Workers bundle / local Workers runtime
 ```
 
 Before committing: `pnpm lint && pnpm typecheck && pnpm test && pnpm build`, and `pnpm test:e2e` for UI changes.
