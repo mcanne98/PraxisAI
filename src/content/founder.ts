@@ -17,7 +17,10 @@ export const founder = {
     // Served from the founder's blog (same owner). Allowed in the CSP img-src.
     src: "https://blog.cedricanne.com/aboutme.jpg",
     alt: "Cedric Anne",
-  } as null | { src: string; alt: string },
+    // Native size of the published image (wide banner). Rendered uncropped at this ratio.
+    width: 1530,
+    height: 480,
+  } as null | { src: string; alt: string; width: number; height: number },
   shortBio:
     "Cedric Anne is a technology executive and AI strategist who has spent a career at the intersection of technology and the people who use it, most recently in healthcare technology. Cedric founded Praxis Intelligence to help leaders do the hard, human work of turning AI into real change in how organizations operate.",
   longBio: [
