@@ -61,7 +61,7 @@ Most content changes are edits to `src/content/*` — no layout work required.
 
 ## Outstanding before launch
 
-1. **Founder biography and photograph** — current copy is a clearly flagged draft (`src/content/founder.ts`).
+1. **Founder biography** — sourced from blog.cedricanne.com (Nov 2026); add LinkedIn career history if desired (`src/content/founder.ts`).
 2. **Lead delivery** — configure Resend and/or a CRM webhook (`.env.example`). Until then forms say submissions are not sent.
 3. **Legal review** — `/privacy` and `/terms` are drafts with bracketed placeholders; legal entity name to be confirmed.
 4. **Indexing** — `ALLOW_INDEXING=true` in Cloudflare only once launch is approved (domain: praxis.cedricanne.com, set in `.env.production`).

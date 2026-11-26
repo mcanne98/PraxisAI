@@ -22,7 +22,7 @@ definitions and consistent editorial insight.
 - 3 practice pages (10–12 services each) generated from `content/practices.ts`.
 - 7 Academy learning paths, 4 workshops, 5 resources (2 live, 3 in development).
 - 3 framework articles (drafted for owner review): The Praxis Method; The six dimensions of AI readiness; Why AI pilots stall.
-- Founder profile — **draft, pending approval**.
+- Founder profile — sourced from the founder's blog; current employer intentionally not named.
 - Draft Privacy and Terms — **pending legal review**.
 
 ## Editorial categories
@@ -38,9 +38,12 @@ AI Leadership · Agentic AI · Enterprise Transformation · Knowledge Protocol E
 
 ## Founder content
 
-The brief supplied positioning, not verified facts. The current bio uses only that positioning — no employers, titles, dates,
-credentials or metrics — and displays a "pending approval" notice. To finalize: supply approved bio text and a licensed photograph,
-update `src/content/founder.ts`, set `bioIsPlaceholder: false`, and add `photo`.
+**Source:** the founder's own About page at blog.cedricanne.com/about (Nov 2026). **Owner decisions:** do not name the current
+employer or role on this site (conflict-of-interest and implied-endorsement risk); use the photo published on the blog; no career
+history beyond the blog's stated facts until supplied. The bio covers the career theme (technology and the people who use it, recently
+healthcare technology), the AI-First Framework (People, Process, Product), recognition (Fellow, ACHDM; Vice Chair, AI Community of
+Practice) and the weekly newsletter _AI, Myself & I_. To extend it, e.g. with LinkedIn history, update `src/content/founder.ts` with
+owner-approved facts only.
 
 ## SEO themes
 

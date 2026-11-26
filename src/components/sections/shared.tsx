@@ -91,8 +91,21 @@ export function InsightCard({ insight }: { insight: Insight }) {
 
 export function FounderPortrait({ className = "" }: { className?: string }) {
   if (founder.photo) {
-    // eslint-disable-next-line @next/next/no-img-element -- replace with next/image once a photo is supplied
-    return <img src={founder.photo.src} alt={founder.photo.alt} className={className} />;
+    return (
+      <div className={`relative aspect-[4/5] overflow-hidden rounded-2xl bg-slate-deep ${className}`}>
+        {/* Remote image from the founder's blog; fixed aspect box prevents layout shift. */}
+        {/* eslint-disable-next-line @next/next/no-img-element -- external same-owner asset; next/image optimizer not used on Workers */}
+        <img
+          src={founder.photo.src}
+          alt={founder.photo.alt}
+          width={800}
+          height={1000}
+          loading="lazy"
+          decoding="async"
+          className="absolute inset-0 h-full w-full object-cover"
+        />
+      </div>
+    );
   }
   return (
     <div
