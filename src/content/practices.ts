@@ -143,8 +143,8 @@ export const practices: Practice[] = [
       { title: "AI implementation roadmaps", summary: "Sequenced delivery plans that balance quick wins against durable foundations." },
       { title: "Custom AI solutions", summary: "Purpose-built solutions where off-the-shelf tools do not fit the problem." },
       {
-        title: "Healthcare AI transformation",
-        summary: "AI design and delivery that respects clinical workflows, privacy and regulatory context.",
+        title: "AI for regulated industries",
+        summary: "AI design and delivery that respects privacy, compliance and risk obligations in regulated environments.",
       },
     ],
     outcomes: [
@@ -161,11 +161,11 @@ export const practices: Practice[] = [
     seo: {
       title: "AI Transformation Consulting & Agentic AI Implementation",
       description:
-        "Agentic AI consulting, enterprise AI integration, intelligent workflow automation and healthcare AI consulting that turns strategy into operational outcomes.",
+        "Agentic AI consulting, enterprise AI integration, intelligent workflow automation and responsible AI implementation that turns strategy into operational outcomes.",
       keywords: [
         "AI transformation consulting",
         "Agentic AI consulting",
-        "Healthcare AI consulting",
+        "Responsible AI consulting",
         "AI consulting Canada",
         "AI consulting Ontario",
       ],

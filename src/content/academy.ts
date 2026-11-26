@@ -58,11 +58,11 @@ export const learningCategories: LearningCategory[] = [
     status: "available-on-request",
   },
   {
-    id: "ai-for-healthcare",
-    title: "AI for Healthcare",
-    audience: "Healthcare leaders and clinicians",
-    summary: "Applying AI in care settings with attention to workflow, privacy, safety and trust.",
-    topics: ["Clinical and operational use cases", "Privacy and data stewardship", "Safety and oversight", "Change in care settings"],
+    id: "responsible-ai",
+    title: "Responsible AI and Governance",
+    audience: "Leaders, risk, legal and compliance teams",
+    summary: "Deploying AI safely and accountably — proportionate governance, privacy, oversight and trust.",
+    topics: ["Risk assessment", "Privacy and data stewardship", "Human oversight", "Policy and accountability"],
     status: "in-development",
   },
   {

@@ -66,7 +66,7 @@ export function professionalServiceJsonLd() {
       "Agentic AI",
       "AI transformation consulting",
       "AI training for executives",
-      "Healthcare AI",
+      "Responsible AI",
     ],
   };
 }
