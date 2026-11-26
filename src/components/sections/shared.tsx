@@ -92,14 +92,17 @@ export function InsightCard({ insight }: { insight: Insight }) {
 export function FounderPortrait({ className = "" }: { className?: string }) {
   if (founder.photo) {
     return (
-      <div className={`relative aspect-[4/5] overflow-hidden rounded-2xl bg-slate-deep ${className}`}>
-        {/* Remote image from the founder's blog; fixed aspect box prevents layout shift. */}
+      <div
+        className={`relative overflow-hidden rounded-2xl bg-slate-deep ${className}`}
+        style={{ aspectRatio: `${founder.photo.width} / ${founder.photo.height}` }}
+      >
+        {/* Remote image from the founder's blog, shown uncropped at its native ratio; the box reserves space (no layout shift). */}
         {/* eslint-disable-next-line @next/next/no-img-element -- external same-owner asset; next/image optimizer not used on Workers */}
         <img
           src={founder.photo.src}
           alt={founder.photo.alt}
-          width={800}
-          height={1000}
+          width={founder.photo.width}
+          height={founder.photo.height}
           loading="lazy"
           decoding="async"
           className="absolute inset-0 h-full w-full object-cover"
@@ -128,27 +131,31 @@ export function FounderPortrait({ className = "" }: { className?: string }) {
 export function FounderIntro() {
   return (
     <Section aria-labelledby="founder-heading">
-      <Container className="grid items-center gap-12 lg:grid-cols-[0.8fr_1.2fr] lg:gap-20">
-        <FounderPortrait className="mx-auto w-full max-w-sm" />
-        <div>
-          <Eyebrow>Founder</Eyebrow>
-          <h2 id="founder-heading" className="mt-4 text-3xl font-semibold sm:text-[2.6rem] sm:leading-[1.12]">
-            {founder.name}
-          </h2>
-          <p className="mt-6 text-lg leading-relaxed text-ink-muted">{founder.shortBio}</p>
-          <blockquote className="mt-8 border-l-2 border-blue-ink pl-5 font-serif text-2xl leading-snug text-ink italic">
-            {founder.philosophy}
-          </blockquote>
-          <div className="mt-8 flex flex-wrap gap-x-8 gap-y-3">
-            <TextLink href="/about">About Praxis Intelligence</TextLink>
-            <TextLink href={site.founder.linkedin}>LinkedIn</TextLink>
-            <TextLink href={site.founder.blog}>Thought leadership blog</TextLink>
+      <Container>
+        <FounderPortrait className={founder.photo ? "w-full" : "mx-auto w-full max-w-sm"} />
+        <div className="mt-12 grid gap-8 lg:grid-cols-[0.8fr_1.2fr] lg:gap-20">
+          <div>
+            <Eyebrow>Founder</Eyebrow>
+            <h2 id="founder-heading" className="mt-4 text-3xl font-semibold sm:text-[2.6rem] sm:leading-[1.12]">
+              {founder.name}
+            </h2>
           </div>
-          {founder.bioIsPlaceholder && (
-            <Notice className="mt-8">
-              Draft biography based on the project brief — pending founder review and approval before launch.
-            </Notice>
-          )}
+          <div>
+            <p className="text-lg leading-relaxed text-ink-muted">{founder.shortBio}</p>
+            <blockquote className="mt-8 border-l-2 border-blue-ink pl-5 font-serif text-2xl leading-snug text-ink italic">
+              {founder.philosophy}
+            </blockquote>
+            <div className="mt-8 flex flex-wrap gap-x-8 gap-y-3">
+              <TextLink href="/about">About Praxis Intelligence</TextLink>
+              <TextLink href={site.founder.linkedin}>LinkedIn</TextLink>
+              <TextLink href={site.founder.blog}>{founder.newsletter.name}</TextLink>
+            </div>
+            {founder.bioIsPlaceholder && (
+              <Notice className="mt-8">
+                Draft biography based on the project brief — pending founder review and approval before launch.
+              </Notice>
+            )}
+          </div>
         </div>
       </Container>
     </Section>
