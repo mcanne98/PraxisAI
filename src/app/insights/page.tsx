@@ -21,8 +21,8 @@ async function BlogPosts() {
   if (posts.length === 0) {
     return (
       <p className="text-lg leading-relaxed text-ink-muted">
-        Cedric Anne publishes longer-form thinking on AI leadership, agentic AI and enterprise transformation. Articles are published on,
-        and remain canonical at, blog.cedricanne.com.
+        Cedric Anne writes AI, Myself &amp; I, a weekly newsletter on AI adoption, leadership and organizational transformation. Articles
+        are published on, and remain canonical at, blog.cedricanne.com.
       </p>
     );
   }
@@ -75,9 +75,9 @@ export default function InsightsPage() {
       <Section tone="warm" aria-labelledby="blog-heading">
         <Container className="grid gap-12 lg:grid-cols-[0.8fr_1.2fr] lg:gap-20">
           <div>
-            <SectionHeading id="blog-heading" eyebrow="From the founder" title="Thought leadership by Cedric Anne." />
+            <SectionHeading id="blog-heading" eyebrow="From the founder" title="AI, Myself & I — by Cedric Anne." />
             <TextLink href={site.founder.blog} className="mt-8">
-              Read the blog
+              Read the newsletter
             </TextLink>
           </div>
           <Suspense fallback={<p className="text-ink-muted">Loading recent articles…</p>}>

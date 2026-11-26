@@ -224,8 +224,8 @@ export default function HomePage() {
           </div>
           <div className="mt-14 flex flex-col gap-4 rounded-2xl border border-ink/10 bg-paper p-7 sm:flex-row sm:items-center sm:justify-between">
             <p className="text-ink-muted">
-              <span className="font-semibold text-ink">More from the founder.</span> Cedric Anne writes on AI leadership and enterprise
-              transformation at blog.cedricanne.com.
+              <span className="font-semibold text-ink">More from the founder.</span> Cedric Anne writes <em>AI, Myself &amp; I</em>, a
+              weekly newsletter on leading through the AI shift.
             </p>
             <TextLink href={site.founder.blog} className="shrink-0">
               Visit the blog

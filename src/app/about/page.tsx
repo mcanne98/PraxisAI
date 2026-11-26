@@ -118,6 +118,22 @@ export default function AboutPage() {
             <blockquote className="mt-8 border-l-2 border-blue-ink pl-5 font-serif text-2xl leading-snug text-ink italic">
               {founder.philosophy}
             </blockquote>
+            <h3 className="mt-10 font-display text-sm font-semibold text-ink">Recognition and community</h3>
+            <ul className="mt-4 divide-y divide-rule border-y border-rule">
+              {founder.recognition.map((r) => (
+                <li key={r.title + r.organization} className="flex flex-col gap-0.5 py-3 sm:flex-row sm:gap-3">
+                  <span className="font-semibold text-ink sm:w-28 sm:shrink-0">{r.title}</span>
+                  {r.href ? (
+                    <a href={r.href} target="_blank" rel="noopener noreferrer" className="text-blue-ink underline underline-offset-4">
+                      {r.organization}
+                      <span className="sr-only"> (opens in a new tab)</span>
+                    </a>
+                  ) : (
+                    <span className="text-ink-muted">{r.organization}</span>
+                  )}
+                </li>
+              ))}
+            </ul>
             <h3 className="mt-10 font-display text-sm font-semibold text-ink">Areas of focus</h3>
             <ul className="mt-4 flex flex-wrap gap-2">
               {founder.expertise.map((e) => (
@@ -128,7 +144,7 @@ export default function AboutPage() {
             </ul>
             <div className="mt-10 flex flex-wrap gap-x-8 gap-y-3">
               <TextLink href={site.founder.linkedin}>Connect on LinkedIn</TextLink>
-              <TextLink href={site.founder.blog}>Read the blog</TextLink>
+              <TextLink href={site.founder.blog}>Read {founder.newsletter.name}</TextLink>
             </div>
             {founder.bioIsPlaceholder && (
               <Notice className="mt-8" title="Pending approval">

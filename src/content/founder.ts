@@ -1,36 +1,49 @@
 /**
  * Founder profile.
  *
- * IMPORTANT: This copy is intentionally limited to the positioning supplied by
- * the owner in the project brief. It contains no employers, titles, dates,
- * credentials or metrics. `bioIsPlaceholder` keeps a visible "pending approval"
- * notice on the page until a verified biography and photograph are supplied.
- * See docs/CONTENT_STRATEGY.md → Founder content.
+ * Source of facts: the founder's own published About page (blog.cedricanne.com/about), Nov 2026.
+ * Owner decisions (Nov 2026):
+ *   - Do NOT name the current employer or role on this site.
+ *   - Use the photo published on the blog.
+ *   - No career history beyond the blog's stated facts until supplied (e.g. from LinkedIn).
+ * Do not add employers, titles, dates, education or metrics without the owner's approval.
+ * Refer to the founder by name — no pronouns. See docs/CONTENT_STRATEGY.md → Founder content.
  */
 export const founder = {
   name: "Cedric Anne",
   role: "Founder",
-  bioIsPlaceholder: true,
-  photo: null as null | { src: string; alt: string },
+  bioIsPlaceholder: false,
+  photo: {
+    // Served from the founder's blog (same owner). Allowed in the CSP img-src.
+    src: "https://blog.cedricanne.com/aboutme.jpg",
+    alt: "Cedric Anne",
+  } as null | { src: string; alt: string },
   shortBio:
-    "Cedric Anne is a technology executive and AI strategist focused on enterprise transformation, and the founder of Praxis Intelligence — created to close the gap between understanding AI and applying it to create measurable outcomes.",
+    "Cedric Anne is a technology executive and AI strategist who has spent a career at the intersection of technology and the people who use it, most recently in healthcare technology. Cedric founded Praxis Intelligence to help leaders do the hard, human work of turning AI into real change in how organizations operate.",
   longBio: [
-    "Cedric Anne is a technology executive, AI strategist and educator whose work centres on leading complex technology organizations through change.",
-    "Cedric’s focus spans enterprise AI strategy, agentic AI, digital transformation, product strategy, healthcare technology, enterprise data and integration, and operational excellence. A particular focus is Knowledge Protocol Engineering — an approach to structuring expertise and context so that AI systems behave reliably.",
-    "Cedric writes about AI leadership, enterprise transformation and the future of work at blog.cedricanne.com.",
+    "Cedric Anne has spent a career at the intersection of technology and the people who use it. In recent years, that has meant working on the front lines of one of the most significant shifts in how organizations operate: AI becoming a genuine collaborator in everyday decisions.",
+    "Much of that work has been in healthcare technology — an industry where the stakes are high, workflows are intricate and the margin for error is narrow. That experience shapes how Praxis Intelligence works: grounded in real operational complexity rather than theory.",
+    "Cedric evaluates every AI initiative through three questions. People: how do humans adapt when intelligence becomes a collaborator, not just a tool? Process: how do workflows change when they are designed with AI from day one rather than retrofitted? Product: how does value delivery change when organizations move from owning software to owning workflows?",
+    "Cedric is a Fellow of the American College of Health Data Management and Vice Chair of an AI Community of Practice, and writes the weekly newsletter AI, Myself & I on leading, adapting and building in an AI-first world.",
   ],
   philosophy:
-    "AI transformation is not a technology project. It is a capability-building journey — and the organizations that win will be the ones that learn fastest and apply what they learn.",
+    "The real challenge isn’t the technology. The harder problem is human: how people, teams and organizations rethink how work gets done when intelligence becomes abundant.",
+  recognition: [
+    { title: "Fellow", organization: "American College of Health Data Management" },
+    { title: "Vice Chair", organization: "AI Community of Practice" },
+    { title: "Author", organization: "AI, Myself & I — a weekly newsletter", href: "https://blog.cedricanne.com" },
+  ] as { title: string; organization: string; href?: string }[],
+  newsletter: { name: "AI, Myself & I", href: "https://blog.cedricanne.com" },
   expertise: [
-    "Technology and executive leadership",
     "Enterprise AI strategy",
     "Agentic AI",
-    "Digital transformation",
-    "Product strategy and development",
     "Healthcare technology",
-    "Operational excellence",
+    "AI-first workflows",
+    "Organizational transformation",
+    "Change management",
+    "Technology and executive leadership",
+    "Product strategy and development",
     "Enterprise data and integration",
-    "Organizational capability building",
     "Knowledge Protocol Engineering",
   ],
 };

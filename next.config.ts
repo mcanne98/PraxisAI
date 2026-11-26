@@ -15,7 +15,8 @@ const csp = [
   "default-src 'self'",
   `script-src 'self' 'unsafe-inline'${isDev ? " 'unsafe-eval'" : ""}`,
   "style-src 'self' 'unsafe-inline'",
-  "img-src 'self' data: blob:",
+  // blog.cedricanne.com: founder photo (same owner).
+  "img-src 'self' data: blob: https://blog.cedricanne.com",
   "font-src 'self' data:",
   "connect-src 'self'",
   "frame-ancestors 'none'",
