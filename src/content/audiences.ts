@@ -22,10 +22,10 @@ export const audiences: Audience[] = [
     href: "/consulting",
   },
   {
-    id: "healthcare",
-    title: "Healthcare organizations",
-    challenge: "Real potential, constrained by clinical workflows, privacy and regulation.",
-    howWeHelp: "AI strategy and implementation designed around care delivery, data stewardship and trust.",
+    id: "regulated",
+    title: "Regulated industries",
+    challenge: "Real potential in finance, insurance, healthcare and the public sector — constrained by privacy, compliance and risk.",
+    howWeHelp: "AI strategy and implementation designed around governance, data stewardship and trust from day one.",
     href: "/consulting",
   },
   {

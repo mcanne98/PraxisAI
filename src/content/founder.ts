@@ -22,10 +22,10 @@ export const founder = {
     height: 480,
   } as null | { src: string; alt: string; width: number; height: number },
   shortBio:
-    "Cedric Anne is a technology executive and AI strategist who has spent a career at the intersection of technology and the people who use it, most recently in healthcare technology. Cedric founded Praxis Intelligence to help leaders do the hard, human work of turning AI into real change in how organizations operate.",
+    "Cedric Anne is a technology executive and AI strategist who has spent a career at the intersection of technology and the people who use it, leading teams through complex technology change in high-stakes, highly regulated environments. Cedric founded Praxis Intelligence to help leaders do the hard, human work of turning AI into real change in how organizations operate.",
   longBio: [
     "Cedric Anne has spent a career at the intersection of technology and the people who use it. In recent years, that has meant working on the front lines of one of the most significant shifts in how organizations operate: AI becoming a genuine collaborator in everyday decisions.",
-    "Much of that work has been in healthcare technology — an industry where the stakes are high, workflows are intricate and the margin for error is narrow. That experience shapes how Praxis Intelligence works: grounded in real operational complexity rather than theory.",
+    "Much of that work has been in highly regulated industries, where the stakes are high, workflows are intricate and the margin for error is narrow. That experience shapes how Praxis Intelligence works: grounded in real operational complexity rather than theory.",
     "Cedric evaluates every AI initiative through three questions. People: how do humans adapt when intelligence becomes a collaborator, not just a tool? Process: how do workflows change when they are designed with AI from day one rather than retrofitted? Product: how does value delivery change when organizations move from owning software to owning workflows?",
     "Cedric is a Fellow of the American College of Health Data Management and Vice Chair of an AI Community of Practice, and writes the weekly newsletter AI, Myself & I on leading, adapting and building in an AI-first world.",
   ],
@@ -40,7 +40,7 @@ export const founder = {
   expertise: [
     "Enterprise AI strategy",
     "Agentic AI",
-    "Healthcare technology",
+    "Responsible AI and governance",
     "AI-first workflows",
     "Organizational transformation",
     "Change management",

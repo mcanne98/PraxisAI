@@ -11,7 +11,7 @@ import { pageMetadata } from "@/lib/seo";
 export const metadata: Metadata = pageMetadata({
   title: "Insights: AI Leadership, Strategy & Transformation",
   description:
-    "Frameworks and perspectives on AI leadership, agentic AI, enterprise transformation, Knowledge Protocol Engineering, healthcare AI and the future of work.",
+    "Frameworks and perspectives on AI leadership, agentic AI, enterprise transformation, Knowledge Protocol Engineering, responsible AI and the future of work.",
   path: "/insights",
   keywords: ["AI leadership", "Enterprise AI strategy", "Agentic AI", "AI transformation"],
 });

@@ -14,7 +14,7 @@ export const insightCategories = [
   "Enterprise Transformation",
   "Knowledge Protocol Engineering",
   "Future of Work",
-  "Healthcare AI",
+  "Responsible AI",
   "AI Education",
 ] as const;
 

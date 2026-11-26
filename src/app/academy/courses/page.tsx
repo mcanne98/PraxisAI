@@ -8,7 +8,7 @@ import { pageMetadata } from "@/lib/seo";
 export const metadata: Metadata = pageMetadata({
   title: "AI Courses & Learning Paths",
   description:
-    "Praxis Academy learning paths in AI for leaders, AI fundamentals, agentic AI, prompt and context engineering, enterprise AI transformation, healthcare AI and AI productivity.",
+    "Praxis Academy learning paths in AI for leaders, AI fundamentals, agentic AI, prompt and context engineering, enterprise AI transformation, responsible AI and AI productivity.",
   path: "/academy/courses",
   keywords: ["AI leadership training", "Corporate AI training", "Agentic AI training", "Prompt engineering training"],
 });

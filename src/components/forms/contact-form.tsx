@@ -57,7 +57,7 @@ export function ContactForm({ deliveryEnabled }: { deliveryEnabled: boolean }) {
           label="How can we help?"
           required
           maxLength={4000}
-          hint="A few sentences on your goals or challenge is plenty. Please don’t include confidential or personal health information."
+          hint="A few sentences on your goals or challenge is plenty. Please don’t include confidential or sensitive personal information."
           error={err("message")}
         />
         <div className="space-y-4">

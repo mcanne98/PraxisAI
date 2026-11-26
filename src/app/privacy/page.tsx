@@ -40,8 +40,8 @@ export default function PrivacyPage() {
         </li>
       </ul>
       <p>
-        Please do not submit confidential business information or sensitive personal information (such as health information) through this
-        website.
+        Please do not submit confidential business information or sensitive personal information (such as health or financial information)
+        through this website.
       </p>
 
       <h2>Why we use it</h2>
