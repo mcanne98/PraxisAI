@@ -52,7 +52,7 @@ export default async function HomePage() {
         <Container className="relative grid items-center gap-14 pt-16 pb-20 sm:pt-24 sm:pb-28 lg:grid-cols-[1.1fr_0.9fr]">
           <div>
             <p className="font-display text-sm font-semibold tracking-[0.16em] text-teal uppercase">{site.tagline}</p>
-            <h1 className="mt-5 text-display font-semibold">
+            <h1 className="mt-5 text-display font-bold">
               Intelligence is only valuable when it creates <span className="text-blue-soft">impact.</span>
             </h1>
             <p className="mt-7 max-w-xl text-lg leading-relaxed text-mist sm:text-xl">
@@ -77,7 +77,7 @@ export default async function HomePage() {
         <Container className="grid gap-14 lg:grid-cols-[1.1fr_0.9fr] lg:gap-20">
           <div>
             <Eyebrow>The AI transformation challenge</Eyebrow>
-            <h2 id="challenge-heading" className="mt-4 text-3xl leading-[1.12] font-semibold sm:text-[2.6rem]">
+            <h2 id="challenge-heading" className="mt-4 text-3xl leading-[1.12] font-bold sm:text-[2.6rem]">
               The challenge isn’t accessing AI. It’s knowing what to do with it.
             </h2>
             <div className="mt-8 space-y-5 text-lg leading-relaxed text-ink-muted">
@@ -152,7 +152,7 @@ export default async function HomePage() {
           <ul className="mt-14 grid gap-x-12 md:grid-cols-2">
             {audiences.map((a) => (
               <li key={a.id} className="group relative border-t border-ink/15 py-8">
-                <h3 className="flex items-start justify-between gap-4 text-xl font-semibold">
+                <h3 className="flex items-start justify-between gap-4 text-xl font-bold">
                   <Link href={a.href} className="group-hover:text-blue-ink after:absolute after:inset-0">
                     {a.title}
                   </Link>

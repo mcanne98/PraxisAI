@@ -39,7 +39,7 @@ export default function WorkshopsPage() {
                     <StatusBadge tone="teal">Available on request</StatusBadge>
                     <span className="text-sm text-ink-muted">{w.format}</span>
                   </div>
-                  <h2 className="mt-4 text-2xl font-semibold sm:text-3xl">{w.title}</h2>
+                  <h2 className="mt-4 text-2xl font-bold sm:text-3xl">{w.title}</h2>
                   <p className="mt-1 text-sm font-medium text-ink-muted">For: {w.audience}</p>
                   <p className="mt-4 text-lg leading-relaxed text-ink-muted">{w.summary}</p>
                 </div>

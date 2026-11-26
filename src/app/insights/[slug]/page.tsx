@@ -65,7 +65,7 @@ export default async function InsightPage({ params }: PageProps<"/insights/[slug
       {related.length > 0 && (
         <Section tone="warm" aria-labelledby="related-heading">
           <Container>
-            <h2 id="related-heading" className="text-2xl font-semibold">
+            <h2 id="related-heading" className="text-2xl font-bold">
               Continue reading
             </h2>
             <div className="mt-10 grid gap-10 md:grid-cols-2">

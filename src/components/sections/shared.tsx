@@ -32,7 +32,7 @@ export function PageHero({
             {eyebrow}
           </Eyebrow>
         )}
-        <h1 className="mt-4 max-w-4xl text-display font-semibold">{title}</h1>
+        <h1 className="mt-4 max-w-4xl text-display font-bold">{title}</h1>
         {lead && <p className="mt-6 max-w-2xl text-lg leading-relaxed text-mist sm:text-xl">{lead}</p>}
         {children}
       </Container>
@@ -76,7 +76,7 @@ export function InsightCard({ insight }: { insight: Insight }) {
   return (
     <article className="group relative flex h-full flex-col border-t border-ink/15 pt-6">
       <p className="text-xs font-semibold tracking-[0.14em] text-teal-ink uppercase">{insight.category}</p>
-      <h3 className="mt-3 text-xl leading-snug font-semibold text-ink">
+      <h3 className="mt-3 text-xl leading-snug font-bold text-ink">
         <Link href={`/insights/${insight.slug}`} className="group-hover:text-blue-ink after:absolute after:inset-0">
           {insight.title}
         </Link>
@@ -136,7 +136,7 @@ export function FounderIntro() {
         <div className="mt-12 grid gap-8 lg:grid-cols-[0.8fr_1.2fr] lg:gap-20">
           <div>
             <Eyebrow>Founder</Eyebrow>
-            <h2 id="founder-heading" className="mt-4 text-3xl font-semibold sm:text-[2.6rem] sm:leading-[1.12]">
+            <h2 id="founder-heading" className="mt-4 text-3xl font-bold sm:text-[2.6rem] sm:leading-[1.12]">
               {founder.name}
             </h2>
           </div>
@@ -176,7 +176,7 @@ export function FinalCta({
         className="pointer-events-none absolute bottom-[-40%] left-1/2 size-[640px] -translate-x-1/2 rounded-full bg-blue/20 blur-[140px]"
       />
       <Container className="relative text-center">
-        <h2 id="final-cta-heading" className="mx-auto max-w-3xl text-4xl leading-[1.08] font-semibold sm:text-5xl">
+        <h2 id="final-cta-heading" className="mx-auto max-w-3xl text-4xl leading-[1.08] font-bold sm:text-5xl">
           {title}
         </h2>
         <p className="mx-auto mt-6 max-w-2xl text-lg leading-relaxed text-mist">{lead}</p>

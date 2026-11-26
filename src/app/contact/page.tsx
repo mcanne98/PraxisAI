@@ -32,14 +32,14 @@ export default function ContactPage() {
       <Section>
         <Container className="grid gap-14 lg:grid-cols-[1.25fr_0.75fr] lg:gap-20">
           <div className="rounded-2xl border border-ink/10 bg-white p-6 sm:p-10">
-            <h2 className="text-2xl font-semibold">Send us a message</h2>
+            <h2 className="text-2xl font-bold">Send us a message</h2>
             <div className="mt-8">
               <ContactForm deliveryEnabled={isDeliveryConfigured()} />
             </div>
           </div>
           <aside aria-labelledby="expect-heading" className="space-y-10">
             <div>
-              <h2 id="expect-heading" className="font-display text-xl font-semibold">
+              <h2 id="expect-heading" className="font-display text-xl font-bold">
                 What to expect
               </h2>
               <ol className="mt-6 space-y-6">

@@ -114,7 +114,7 @@ export function PraxisMethod() {
           <p className="font-display text-sm font-semibold tracking-[0.18em] text-teal-ink uppercase">
             Stage {stage.number} of {methodStages.length}
           </p>
-          <h3 className="mt-3 text-4xl font-semibold text-ink">{stage.name}</h3>
+          <h3 className="mt-3 text-4xl font-bold text-ink">{stage.name}</h3>
           <p className="mt-3 text-xl font-medium text-ink">{stage.summary}</p>
           <p className="mt-4 text-lg leading-relaxed text-ink-muted">{stage.detail}</p>
           <p className="mt-6 border-l-2 border-blue-ink pl-4 font-serif text-xl text-ink italic">“{stage.question}”</p>

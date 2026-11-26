@@ -112,13 +112,13 @@
   font-size: 1.75rem;
   line-height: 1.25;
   margin-top: 2.2em;
-  font-weight: 600;
+  font-weight: 700;
 }
 .prose-praxis h3 {
   font-size: 1.3rem;
   line-height: 1.35;
   margin-top: 1.8em;
-  font-weight: 600;
+  font-weight: 700;
 }
 .prose-praxis a {
   color: var(--color-blue-ink);

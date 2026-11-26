@@ -45,7 +45,7 @@ export function Assessment({ deliveryEnabled }: { deliveryEnabled: boolean }) {
   if (step.kind === "intro") {
     return (
       <div ref={rootRef} className="rounded-2xl border border-ink/10 bg-white p-7 sm:p-10">
-        <h2 ref={headingRef} tabIndex={-1} className="text-2xl font-semibold sm:text-3xl">
+        <h2 ref={headingRef} tabIndex={-1} className="text-2xl font-bold sm:text-3xl">
           {questions.length} questions. About ten minutes.
         </h2>
         <p className="mt-4 max-w-2xl text-lg leading-relaxed text-ink-muted">
@@ -99,7 +99,7 @@ export function Assessment({ deliveryEnabled }: { deliveryEnabled: boolean }) {
             <div className="h-full rounded-full bg-blue-ink transition-[width] duration-500" style={{ width: `${progress}%` }} />
           </div>
         </div>
-        <h2 ref={headingRef} tabIndex={-1} className="mt-8 text-2xl font-semibold sm:text-3xl">
+        <h2 ref={headingRef} tabIndex={-1} className="mt-8 text-2xl font-bold sm:text-3xl">
           {dim.name}
         </h2>
         <p className="mt-2 text-ink-muted">{dim.description}</p>
@@ -234,7 +234,7 @@ function Results({
     <div className="space-y-8">
       <section aria-labelledby="results-heading" className="rounded-2xl bg-midnight p-7 text-paper sm:p-10">
         <p className="font-display text-xs font-semibold tracking-[0.18em] text-teal uppercase">Your indicative AI readiness</p>
-        <h2 id="results-heading" ref={headingRef} tabIndex={-1} className="mt-4 text-3xl font-semibold sm:text-4xl">
+        <h2 id="results-heading" ref={headingRef} tabIndex={-1} className="mt-4 text-3xl font-bold sm:text-4xl">
           {result.level.name} <span className="text-mist">·</span> {result.overall}
           <span className="text-xl text-mist">/100</span>
         </h2>
@@ -245,7 +245,7 @@ function Results({
       </section>
 
       <section aria-labelledby="dimensions-heading" className="rounded-2xl border border-ink/10 bg-white p-7 sm:p-10">
-        <h3 id="dimensions-heading" className="text-2xl font-semibold">
+        <h3 id="dimensions-heading" className="text-2xl font-bold">
           Scores by dimension
         </h3>
         <ul className="mt-8 space-y-6">
@@ -273,7 +273,7 @@ function Results({
       </section>
 
       <section aria-labelledby="recs-heading" className="rounded-2xl border border-ink/10 bg-white p-7 sm:p-10">
-        <h3 id="recs-heading" className="text-2xl font-semibold">
+        <h3 id="recs-heading" className="text-2xl font-bold">
           Where to focus first
         </h3>
         <div className="mt-8 grid gap-6 lg:grid-cols-2">
@@ -313,7 +313,7 @@ function Results({
       <section aria-labelledby="next-heading" className="grid gap-6 lg:grid-cols-2">
         <div className="rounded-2xl bg-midnight p-7 text-paper sm:p-10">
           <p className="font-display text-xs font-semibold tracking-[0.18em] text-teal uppercase">Suggested next step</p>
-          <h3 id="next-heading" className="mt-3 text-2xl font-semibold">
+          <h3 id="next-heading" className="mt-3 text-2xl font-bold">
             {recs.nextStep.title}
           </h3>
           <p className="mt-3 text-mist">{recs.nextStep.description}</p>
@@ -327,7 +327,7 @@ function Results({
           </div>
         </div>
         <div className="rounded-2xl border border-ink/10 bg-white p-7 sm:p-10">
-          <h3 className="text-xl font-semibold">Want a walkthrough of your results?</h3>
+          <h3 className="text-xl font-bold">Want a walkthrough of your results?</h3>
           <p className="mt-2 text-ink-muted">
             Optional. Share your email and we will follow up with a short interpretation of your scores.
           </p>

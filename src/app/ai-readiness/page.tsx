@@ -35,7 +35,7 @@ export default function AiReadinessPage() {
       </Section>
       <Section tone="warm" aria-labelledby="method-heading">
         <Container className="max-w-5xl">
-          <h2 id="method-heading" className="text-3xl font-semibold">
+          <h2 id="method-heading" className="text-3xl font-bold">
             How scoring works
           </h2>
           <div className="mt-8 grid gap-10 lg:grid-cols-2">
