@@ -89,6 +89,46 @@ describe("deliverLead", () => {
     expect(body.reply_to).toBe("a@b.co");
   });
 
+  it("sends via the Cloudflare EMAIL binding when no Resend key is set", async () => {
+    process.env.LEAD_TO_EMAIL = "owner@example.com";
+    process.env.LEAD_FROM_EMAIL = "praxis@cedricanne.com";
+    const send = vi.fn().mockResolvedValue({ messageId: "m-1" });
+    const result = await deliverLead({ ...lead, name: "Alex" }, async () => ({ send }));
+    expect(result).toEqual({ status: "delivered", channels: ["email"] });
+    const msg = send.mock.calls[0][0];
+    expect(msg.from).toEqual({ name: "Praxis Intelligence website", email: "praxis@cedricanne.com" });
+    expect(msg.to).toBe("owner@example.com");
+    expect(msg.replyTo).toEqual({ name: "Alex", email: "a@b.co" });
+    expect(msg.subject).toBe("[Praxis] Test");
+    expect(msg.html).toContain("&lt;script&gt;");
+    expect(msg.text).toContain("Name: <script>x</script>");
+  });
+
+  it("reports failure (never success) when the Cloudflare binding is unavailable or rejects", async () => {
+    process.env.LEAD_TO_EMAIL = "owner@example.com";
+    process.env.LEAD_FROM_EMAIL = "praxis@cedricanne.com";
+    vi.spyOn(console, "error").mockImplementation(() => {});
+    expect(
+      (
+        await deliverLead(lead, async () => {
+          throw new Error("no binding");
+        })
+      ).status,
+    ).toBe("failed");
+    const send = vi.fn().mockRejectedValue(new Error("E_RECIPIENT_PLAN_RESTRICTED"));
+    expect((await deliverLead(lead, async () => ({ send }))).status).toBe("failed");
+  });
+
+  it("prefers Resend over Cloudflare when RESEND_API_KEY is set", async () => {
+    process.env.RESEND_API_KEY = "test";
+    process.env.LEAD_TO_EMAIL = "owner@example.com";
+    process.env.LEAD_FROM_EMAIL = "praxis@cedricanne.com";
+    vi.stubGlobal("fetch", vi.fn().mockResolvedValue(new Response("{}", { status: 200 })));
+    const send = vi.fn();
+    expect(await deliverLead(lead, async () => ({ send }))).toEqual({ status: "delivered", channels: ["email"] });
+    expect(send).not.toHaveBeenCalled();
+  });
+
   it("reports failure when every channel fails", async () => {
     process.env.CRM_WEBHOOK_URL = "https://hooks.example.com/x";
     vi.stubGlobal("fetch", vi.fn().mockResolvedValue(new Response("", { status: 500 })));
