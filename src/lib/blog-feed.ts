@@ -68,9 +68,9 @@ export function parseFeed(xml: string, limit = 6): BlogPost[] {
       published: parsed && !Number.isNaN(parsed.getTime()) ? parsed.toISOString() : undefined,
       summary,
     });
-    if (posts.length >= limit) break;
   }
-  return posts;
+  // Newest first regardless of feed order; undated items go last.
+  return posts.sort((a, b) => (b.published ?? "").localeCompare(a.published ?? "")).slice(0, limit);
 }
 
 export async function getBlogPosts(): Promise<BlogPost[]> {

@@ -12,6 +12,7 @@ import { FinalCta, FounderIntro, InsightCard } from "@/components/sections/share
 import { ButtonLink, Container, Eyebrow, Section, SectionHeading, StatusBadge, TextLink } from "@/components/ui/primitives";
 import { JsonLd } from "@/components/seo/json-ld";
 import { pageMetadata, professionalServiceJsonLd } from "@/lib/seo";
+import { getBlogPosts } from "@/lib/blog-feed";
 
 export const metadata: Metadata = {
   ...pageMetadata({
@@ -37,8 +38,9 @@ const gaps = [
   { label: "Execution", text: "Workflows redesigned and measured, not tools deployed." },
 ];
 
-export default function HomePage() {
+export default async function HomePage() {
   const latest = sortedInsights().slice(0, 3);
+  const [latestPost] = await getBlogPosts();
 
   return (
     <>
@@ -226,6 +228,16 @@ export default function HomePage() {
             <p className="text-ink-muted">
               <span className="font-semibold text-ink">More from the founder.</span> Cedric Anne writes <em>AI, Myself &amp; I</em>, a
               weekly newsletter on leading through the AI shift.
+              {latestPost && (
+                <>
+                  {" "}
+                  Latest:{" "}
+                  <a href={latestPost.url} target="_blank" rel="noopener noreferrer" className="font-semibold text-ink hover:text-blue-ink">
+                    {latestPost.title}
+                    <span className="sr-only"> (opens blog.cedricanne.com in a new tab)</span>
+                  </a>
+                </>
+              )}
             </p>
             <TextLink href={site.founder.blog} className="shrink-0">
               Visit the blog
