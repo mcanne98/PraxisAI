@@ -18,6 +18,8 @@ export const site = {
     display: "Ontario, Canada",
   },
   areaServed: ["Canada", "United States"],
+  /** Public contact address (Cloudflare Email Routing → owner's inbox). */
+  email: "praxis@cedricanne.com",
   founder: {
     name: "Cedric Anne",
     linkedin: "https://www.linkedin.com/in/cedricanne/",

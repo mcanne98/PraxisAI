@@ -64,7 +64,15 @@ export default function ContactPage() {
               </TextLink>
             </div>
             <div>
-              <p className="font-display text-lg font-semibold">Elsewhere</p>
+              <p className="font-display text-lg font-semibold">Prefer email?</p>
+              <p className="mt-2 text-ink-muted">
+                Write to{" "}
+                <a href={`mailto:${site.email}`} className="font-semibold text-blue-ink underline underline-offset-4">
+                  {site.email}
+                </a>
+                .
+              </p>
+              <p className="mt-6 font-display text-lg font-semibold">Elsewhere</p>
               <div className="mt-3 flex flex-col gap-2">
                 <TextLink href={site.founder.linkedin}>LinkedIn</TextLink>
                 <TextLink href={site.founder.blog}>Founder’s blog</TextLink>

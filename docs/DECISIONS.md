@@ -77,3 +77,12 @@ switch to the R2 cache if that is ever needed.
 **Note:** the in-memory limiter (ADR-008) is per Workers isolate, so it is weaker on Cloudflare than on a single server. The client IP
 now comes from `CF-Connecting-IP`. **Next:** Cloudflare's Rate Limiting binding or WAF rate-limiting rules — no code dependency, and
 the free plan includes one WAF rate-limiting rule.
+
+## ADR-014 — Cloudflare Email Service for lead delivery
+
+**Decision:** Deliver form submissions through the Worker `send_email` binding, from `praxis@cedricanne.com` to a verified Email
+Routing destination; `praxis@cedricanne.com` itself is an Email Routing forward to the same inbox. **Why:** no API key or extra vendor,
+free (sends to verified destinations do not need Email Sending onboarding or the Workers Paid plan), and one platform for hosting, DNS
+and email. **Constraints:** recipients are limited to verified destinations — fine for internal lead notifications; emailing visitors
+(e.g. auto-replies or assessment reports) would need Email Sending onboarding on Workers Paid, or Resend. Resend remains supported and
+takes precedence when `RESEND_API_KEY` is set.

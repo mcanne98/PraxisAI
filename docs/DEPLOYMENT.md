@@ -29,11 +29,21 @@ custom domain) and `open-next.config.ts` (read-only static-assets cache). `NEXT_
 
 Afterwards, every merge to `main` deploys automatically, and other branches get preview URLs.
 
-### Runtime variables and secrets (Worker → Settings → Variables and Secrets)
+### Email (configured)
 
-Add `RESEND_API_KEY` and `CRM_WEBHOOK_SECRET` as **Secrets**, and `LEAD_TO_EMAIL`, `LEAD_FROM_EMAIL`, `CRM_WEBHOOK_URL` and
-`FORM_RATE_LIMIT` as plain variables. Because pages are prerendered, also add the delivery variables as **build variables**: the
-"submissions are not enabled" notice is decided at build time. Redeploy after changing them.
+Leads are emailed through **Cloudflare Email Service** — no API key, no extra vendor:
+
+- `praxis@cedricanne.com` is an **Email Routing** address forwarding to the owner's inbox (rule in the cedricanne.com zone).
+- The Worker's `EMAIL` binding (`wrangler.jsonc`) sends each submission **from** `praxis@cedricanne.com` **to** `LEAD_TO_EMAIL`,
+  with the visitor as Reply-To.
+- `LEAD_TO_EMAIL` is stored as a Worker **secret** and a Workers Builds **build variable** (secret), so the address is not in the repo.
+  The build variable matters because the "submissions are not enabled" notice is decided when pages are prerendered.
+- `LEAD_FROM_EMAIL=praxis@cedricanne.com` is committed in `.env.production`.
+- Cost: free. Sending to a **verified destination address** is free on every plan and needs no Email Sending onboarding. To change the
+  recipient, add and verify the new address under Email Routing → Destination addresses first, then update both secrets and redeploy.
+
+Optional: `CRM_WEBHOOK_URL` (+ `CRM_WEBHOOK_SECRET`) and `FORM_RATE_LIMIT` can be added the same way. `keep_vars: true` in
+`wrangler.jsonc` preserves dashboard variables across deploys.
 
 ### Launch (when approved)
 
@@ -66,14 +76,15 @@ set by Next.js itself, so no extra proxy configuration is required.
 
 ## Environment variables
 
-| Variable                                             | Required           | Purpose                                                 |
-| ---------------------------------------------------- | ------------------ | ------------------------------------------------------- |
-| `NEXT_PUBLIC_SITE_URL`                               | Production         | Canonical origin for metadata, sitemap, JSON-LD         |
-| `ALLOW_INDEXING`                                     | Production only    | `true` enables crawling in robots.txt                   |
-| `RESEND_API_KEY`, `LEAD_TO_EMAIL`, `LEAD_FROM_EMAIL` | For email delivery | All three enable the email channel                      |
-| `CRM_WEBHOOK_URL`, `CRM_WEBHOOK_SECRET`              | Optional           | POST lead JSON to CRM/automation                        |
-| `FORM_RATE_LIMIT`                                    | Optional           | Per-IP submissions per 10 min (default 5)               |
-| `BLOG_FEED_URL`                                      | Optional           | Founder blog RSS/Atom feed (https, blog.cedricanne.com) |
+| Variable                                | Required           | Purpose                                                 |
+| --------------------------------------- | ------------------ | ------------------------------------------------------- |
+| `NEXT_PUBLIC_SITE_URL`                  | Production         | Canonical origin for metadata, sitemap, JSON-LD         |
+| `ALLOW_INDEXING`                        | Production only    | `true` enables crawling in robots.txt                   |
+| `LEAD_TO_EMAIL`, `LEAD_FROM_EMAIL`      | For email delivery | Enable the Cloudflare email channel (binding `EMAIL`)   |
+| `RESEND_API_KEY`                        | Optional           | Use Resend instead of Cloudflare for email              |
+| `CRM_WEBHOOK_URL`, `CRM_WEBHOOK_SECRET` | Optional           | POST lead JSON to CRM/automation                        |
+| `FORM_RATE_LIMIT`                       | Optional           | Per-IP submissions per 10 min (default 5)               |
+| `BLOG_FEED_URL`                         | Optional           | Founder blog RSS/Atom feed (https, blog.cedricanne.com) |
 
 If no delivery variables are set, forms display "Online submissions are not enabled yet" and never claim success.
 

@@ -13,4 +13,9 @@
   // (the cedricanne.com zone must be in the same Cloudflare account).
   "routes": [{ "pattern": "praxis.cedricanne.com", "custom_domain": true }],
   "observability": { "enabled": true },
+  // Cloudflare Email Service. Leads are sent from praxis@cedricanne.com to the verified
+  // destination inbox in LEAD_TO_EMAIL (free on all plans: verified destinations only).
+  "send_email": [{ "name": "EMAIL", "allowed_sender_addresses": ["praxis@cedricanne.com"] }],
+  // Keep variables set in the Cloudflare dashboard (e.g. LEAD_TO_EMAIL) across deploys.
+  "keep_vars": true,
 }

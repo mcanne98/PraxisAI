@@ -48,7 +48,8 @@ reviewable. Article bodies are MDX (`@next/mdx`), with metadata in a registry (`
 - Anti-spam: hidden honeypot field + minimum time-on-page (2.5 s since page load). Bots receive a generic success and nothing is sent.
 - Rate limiting: in-memory fixed window, 5 per IP per form per 10 minutes (`FORM_RATE_LIMIT`), keyed on `CF-Connecting-IP`.
   **Limitation:** per Workers isolate. Add a Cloudflare WAF rate-limiting rule or the Rate Limiting binding before significant traffic.
-- Delivery: `lib/integrations/delivery.ts` — channel adapters enabled by env vars. Returns `delivered | not-configured | failed`. HTML
+- Delivery: `lib/integrations/delivery.ts` — channel adapters enabled by env vars. Default email channel is Cloudflare Email Service
+  via the Worker `EMAIL` binding (ADR-014); Resend replaces it when `RESEND_API_KEY` is set; a CRM webhook can run alongside. Returns `delivered | not-configured | failed`. HTML
   email content is escaped.
 - Forms use React 19 `useActionState` and work without JavaScript. Submitted values are echoed back so fields are refilled after React's
   automatic form reset.

@@ -43,6 +43,7 @@ export function organizationJsonLd() {
     url: site.url,
     logo: `${site.url}/icon.svg`,
     slogan: site.tagline,
+    email: site.email,
     description: site.description,
     founder: { "@type": "Person", name: site.founder.name, sameAs: [site.founder.linkedin, site.founder.blog] },
   };

@@ -7,7 +7,7 @@ import { MIN_FILL_MS, type FormState, type FormValues } from "@/lib/forms/types"
 import { assessmentLeadSchema, contactSchema, fieldErrorsFrom, interestSchema } from "@/lib/validation/schemas";
 
 const NOT_CONFIGURED =
-  "Online submissions are not enabled yet. Your message has not been sent. Please reach out via LinkedIn in the meantime.";
+  "Online submissions are not enabled yet. Your message has not been sent. Please email praxis@cedricanne.com instead.";
 
 /** Max submissions per IP per form per 10 minutes. Override with FORM_RATE_LIMIT (e.g. for tests). */
 const LIMIT = Number(process.env.FORM_RATE_LIMIT ?? 5) || 5;

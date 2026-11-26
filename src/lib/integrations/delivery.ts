@@ -9,7 +9,10 @@ import "server-only";
  * never pretends a message was sent.
  *
  * Channels today:
- *   - Email via Resend HTTP API (RESEND_API_KEY, LEAD_TO_EMAIL, LEAD_FROM_EMAIL)
+ *   - Email via Cloudflare Email Service (Worker `EMAIL` binding; LEAD_TO_EMAIL, LEAD_FROM_EMAIL).
+ *     Default email channel. LEAD_TO_EMAIL must be a verified Email Routing destination
+ *     (free on all plans); LEAD_FROM_EMAIL must be on a routing domain (cedricanne.com).
+ *   - Email via Resend HTTP API — used INSTEAD of Cloudflare when RESEND_API_KEY is set.
  *   - Generic CRM / automation webhook (CRM_WEBHOOK_URL, optional CRM_WEBHOOK_SECRET)
  *
  * To add a channel (HubSpot, Salesforce, Mailchimp…), implement `Channel` and
@@ -41,6 +44,62 @@ function escapeHtml(s: string): string {
   return s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#39;");
 }
 
+function renderLead(lead: Lead) {
+  const rows = Object.entries(lead.fields)
+    .map(
+      ([k, v]) =>
+        `<tr><th align="left" style="padding:4px 12px 4px 0;vertical-align:top">${escapeHtml(k)}</th><td style="padding:4px 0;white-space:pre-wrap">${escapeHtml(v)}</td></tr>`,
+    )
+    .join("");
+  const text = Object.entries(lead.fields)
+    .map(([k, v]) => `${k}: ${v}`)
+    .join("\n");
+  return { subject: `[Praxis] ${lead.subject}`, html: `<table>${rows}</table>`, text };
+}
+
+/** Minimal shape of the Workers `send_email` binding (matches `wrangler types` output). */
+type EmailAddress = { name: string; email: string };
+export interface SendEmailBinding {
+  send(message: {
+    from: string | EmailAddress;
+    to: string | EmailAddress;
+    subject: string;
+    replyTo?: string | EmailAddress;
+    text?: string;
+    html?: string;
+  }): Promise<{ messageId: string }>;
+}
+
+/** Resolves the Worker binding at request time. Overridable in tests. */
+export async function getEmailBinding(): Promise<SendEmailBinding> {
+  const { getCloudflareContext } = await import("@opennextjs/cloudflare");
+  const { env } = await getCloudflareContext({ async: true });
+  const binding = (env as unknown as { EMAIL?: SendEmailBinding }).EMAIL;
+  if (!binding) throw new Error("Cloudflare EMAIL binding is not available in this runtime.");
+  return binding;
+}
+
+function cloudflareEmailChannel(resolveBinding: () => Promise<SendEmailBinding> = getEmailBinding): Channel | null {
+  const to = process.env.LEAD_TO_EMAIL;
+  const from = process.env.LEAD_FROM_EMAIL;
+  if (process.env.RESEND_API_KEY || !to || !from) return null;
+  return {
+    name: "email",
+    async send(lead) {
+      const binding = await resolveBinding();
+      const { subject, html, text } = renderLead(lead);
+      await binding.send({
+        from: { name: "Praxis Intelligence website", email: from },
+        to,
+        replyTo: lead.name ? { name: lead.name, email: lead.email } : lead.email,
+        subject,
+        html,
+        text,
+      });
+    },
+  };
+}
+
 function resendChannel(): Channel | null {
   const apiKey = process.env.RESEND_API_KEY;
   const to = process.env.LEAD_TO_EMAIL;
@@ -49,15 +108,7 @@ function resendChannel(): Channel | null {
   return {
     name: "email",
     async send(lead) {
-      const rows = Object.entries(lead.fields)
-        .map(
-          ([k, v]) =>
-            `<tr><th align="left" style="padding:4px 12px 4px 0;vertical-align:top">${escapeHtml(k)}</th><td style="padding:4px 0;white-space:pre-wrap">${escapeHtml(v)}</td></tr>`,
-        )
-        .join("");
-      const text = Object.entries(lead.fields)
-        .map(([k, v]) => `${k}: ${v}`)
-        .join("\n");
+      const { subject, html, text } = renderLead(lead);
       const res = await fetch("https://api.resend.com/emails", {
         method: "POST",
         headers: { Authorization: `Bearer ${apiKey}`, "Content-Type": "application/json" },
@@ -65,8 +116,8 @@ function resendChannel(): Channel | null {
           from,
           to: [to],
           reply_to: lead.email,
-          subject: `[Praxis] ${lead.subject}`,
-          html: `<table>${rows}</table>`,
+          subject,
+          html,
           text,
         }),
         signal: AbortSignal.timeout(8000),
@@ -95,16 +146,16 @@ function webhookChannel(): Channel | null {
   };
 }
 
-export function channels(): Channel[] {
-  return [resendChannel(), webhookChannel()].filter((c): c is Channel => c !== null);
+export function channels(resolveBinding?: () => Promise<SendEmailBinding>): Channel[] {
+  return [cloudflareEmailChannel(resolveBinding), resendChannel(), webhookChannel()].filter((c): c is Channel => c !== null);
 }
 
 export function isDeliveryConfigured(): boolean {
   return channels().length > 0;
 }
 
-export async function deliverLead(lead: Lead): Promise<DeliveryResult> {
-  const active = channels();
+export async function deliverLead(lead: Lead, resolveBinding?: () => Promise<SendEmailBinding>): Promise<DeliveryResult> {
+  const active = channels(resolveBinding);
   if (active.length === 0) return { status: "not-configured" };
   const results = await Promise.allSettled(active.map((c) => c.send(lead)));
   const delivered = active.filter((_, i) => results[i].status === "fulfilled").map((c) => c.name);
