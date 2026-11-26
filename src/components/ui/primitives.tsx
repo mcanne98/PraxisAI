@@ -64,7 +64,7 @@ export function SectionHeading({
       <As
         id={id}
         className={cn(
-          "mt-4 font-semibold",
+          "mt-4 font-bold",
           As === "h1" ? "text-display" : "text-3xl leading-[1.12] sm:text-[2.6rem]",
           tone === "dark" ? "text-paper" : "text-ink",
         )}

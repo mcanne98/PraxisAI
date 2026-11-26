@@ -34,7 +34,7 @@ export default function ResourcesPage() {
               <li key={r.id} className="group relative grid gap-3 py-7 sm:grid-cols-[8rem_1fr_auto] sm:items-center sm:gap-8">
                 <p className="font-display text-sm font-semibold text-teal-ink">{r.type}</p>
                 <div>
-                  <h2 className="text-xl font-semibold">
+                  <h2 className="text-xl font-bold">
                     {r.href ? (
                       <Link href={r.href} className="group-hover:text-blue-ink after:absolute after:inset-0">
                         {r.title}

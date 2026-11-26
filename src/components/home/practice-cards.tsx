@@ -30,7 +30,7 @@ export function PracticeCards() {
                 className="size-5 text-mist transition-all duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-paper"
               />
             </div>
-            <h3 className="mt-8 text-2xl font-semibold text-paper">{p.name}</h3>
+            <h3 className="mt-8 text-2xl font-bold text-paper">{p.name}</h3>
             <p className="mt-1 font-serif text-xl text-blue-soft italic">{p.cardTitle}</p>
             <p className="mt-5 leading-relaxed text-mist">{p.summary}</p>
             <ul className="mt-6 space-y-2 border-t border-paper/10 pt-6 text-sm text-paper/85">

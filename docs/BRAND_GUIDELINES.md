@@ -37,7 +37,7 @@ Gradients are restrained: soft blurred blue glows on dark sections and the outco
 
 ## Typography
 
-- **Manrope** — headings, labels, wordmark. Tight tracking on display sizes.
+- **Manrope** — headings (Bold, 700), labels and wordmark. Tight tracking on display sizes.
 - **Inter** — body copy and UI.
 - **Newsreader (italic)** — editorial accents: pull quotes, practice taglines, the "question we answer".
 - Display size: `clamp(2.5rem, …, 4.75rem)`, line-height 1.04.

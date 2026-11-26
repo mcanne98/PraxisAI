@@ -34,7 +34,7 @@ export default function CoursesPage() {
                   <p className="text-sm font-medium text-ink-muted">{c.audience}</p>
                   <StatusBadge tone={c.status === "available-on-request" ? "teal" : "neutral"}>{statusLabel[c.status]}</StatusBadge>
                 </div>
-                <h2 className="mt-4 text-2xl font-semibold">{c.title}</h2>
+                <h2 className="mt-4 text-2xl font-bold">{c.title}</h2>
                 <p className="mt-3 leading-relaxed text-ink-muted">{c.summary}</p>
                 <ul className="mt-5 flex flex-wrap gap-2" aria-label={`${c.title} topics`}>
                   {c.topics.map((t) => (

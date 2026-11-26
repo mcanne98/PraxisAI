@@ -46,7 +46,7 @@ export default function AboutPage() {
         <Container className="grid gap-14 lg:grid-cols-2 lg:gap-20">
           <div>
             <Eyebrow>Why we exist</Eyebrow>
-            <h2 id="purpose-heading" className="mt-4 text-3xl leading-[1.12] font-semibold sm:text-[2.6rem]">
+            <h2 id="purpose-heading" className="mt-4 text-3xl leading-[1.12] font-bold sm:text-[2.6rem]">
               Between understanding AI and applying it.
             </h2>
             <p className="mt-6 text-lg leading-relaxed text-ink-muted">
@@ -108,10 +108,10 @@ export default function AboutPage() {
           <div className="mt-12 grid gap-12 lg:grid-cols-[0.8fr_1.2fr] lg:gap-20">
             <div className="lg:sticky lg:top-28 lg:self-start">
               <Eyebrow>Founder</Eyebrow>
-              <h2 id="founder-heading" className="mt-4 text-3xl font-semibold sm:text-[2.6rem]">
+              <h2 id="founder-heading" className="mt-4 text-3xl font-bold sm:text-[2.6rem]">
                 {founder.name}
               </h2>
-              <h3 className="mt-8 font-display text-sm font-semibold text-ink">Recognition and community</h3>
+              <h3 className="mt-8 font-display text-sm font-bold text-ink">Recognition and community</h3>
               <ul className="mt-4 divide-y divide-rule border-y border-rule">
                 {founder.recognition.map((r) => (
                   <li key={r.title + r.organization} className="py-3">
@@ -141,7 +141,7 @@ export default function AboutPage() {
               <blockquote className="mt-8 border-l-2 border-blue-ink pl-5 font-serif text-2xl leading-snug text-ink italic">
                 {founder.philosophy}
               </blockquote>
-              <h3 className="mt-10 font-display text-sm font-semibold text-ink">Areas of focus</h3>
+              <h3 className="mt-10 font-display text-sm font-bold text-ink">Areas of focus</h3>
               <ul className="mt-4 flex flex-wrap gap-2">
                 {founder.expertise.map((e) => (
                   <li key={e} className="rounded-full border border-ink/15 bg-paper px-3.5 py-1.5 text-sm">
