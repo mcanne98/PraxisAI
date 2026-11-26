@@ -48,6 +48,13 @@ describe("parseFeed", () => {
     expect(parseFeed(atom)[0]).toMatchObject({ title: "Atom post", url: "https://blog.cedricanne.com/a" });
   });
 
+  it("sorts newest first and applies the limit after sorting", () => {
+    const item = (t: string, d: string) =>
+      `<item><title>${t}</title><link>https://blog.cedricanne.com/blog/${t}/</link><pubDate>${d}</pubDate></item>`;
+    const xml = `<rss><channel>${item("old", "Mon, 07 Sep 2026 00:00:00 GMT")}${item("new", "Tue, 24 Nov 2026 00:00:00 GMT")}${item("mid", "Tue, 06 Oct 2026 00:00:00 GMT")}</channel></rss>`;
+    expect(parseFeed(xml, 2).map((p) => p.title)).toEqual(["new", "mid"]);
+  });
+
   it("returns an empty list for garbage", () => {
     expect(parseFeed("not xml")).toEqual([]);
   });

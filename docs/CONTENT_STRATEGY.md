@@ -32,7 +32,9 @@ AI Leadership · Agentic AI · Enterprise Transformation · Knowledge Protocol E
 ## Blog relationship (canonical ownership)
 
 - Founder's personal thought leadership remains canonical at `blog.cedricanne.com`.
-- The site links to it (homepage, Insights, About, footer) and can list recent posts via `BLOG_FEED_URL` — links only, no copies.
+- The site links to it (homepage, Insights, About, footer) and lists recent posts from `https://blog.cedricanne.com/rss.xml`
+  (`BLOG_FEED_URL` in `.env.production`) — links only, no copies. The feed is read at build time, so new posts appear on Praxis at
+  its next deploy (any merge to `main`, or "Retry deployment" in Cloudflare).
 - Praxis-owned frameworks are published on this site. If a piece is cross-posted to the blog, set the blog copy's canonical to this
   site (or vice versa) — never leave two canonical versions.
 
